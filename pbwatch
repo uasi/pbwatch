@@ -1,0 +1,18 @@
+#!/usr/bin/osascript -lJavaScript
+
+ObjC.import('stdio')
+ObjC.import('Cocoa')
+
+function run() {
+  const pb = $.NSPasteboard.generalPasteboard
+  let prevString = null
+
+  while (true) {
+    const string = ObjC.unwrap(pb.stringForType('public.utf8-plain-text'))
+    if (prevString !== null && string !== prevString) {
+      $.printf('%s\n', string)
+    }
+    prevString = string
+    delay(0.1)
+  }
+}
